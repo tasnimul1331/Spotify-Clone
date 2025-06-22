@@ -43,29 +43,20 @@ async function getSong() {
   return song;
 }
 
-const playMusic = (track) => {
+const playMusic = (track,pause = false) => {
   if (curentSong) {
     curentSong.pause();
-    play.src = "items svg/play.svg";
-
-    curentSong.ontimeupdate = () => {
-      console.log(curentSong.currentTime, curentSong.duration);
-      document.querySelector(".current-time").innerHTML = `${formatTime(
-        curentSong.currentTime
-      )}`;
-      document.querySelector(".total-time").innerHTML = `${formatTime(
-        curentSong.duration
-      )}`;
-    };
   }
 
   curentSong = new Audio("/songs/" + track);
+  if(!pause){
   curentSong.play();
-  play.src = "items svg/play.svg";
+  play.src = "items svg/pause.svg";
+  }
 
   document.querySelectorAll(".track-info").forEach((el) => {
     if (el.firstElementChild) {
-      el.firstElementChild.innerHTML = track;
+      el.firstElementChild.innerHTML = decodeURI(track);
     }
   });
 
@@ -89,6 +80,9 @@ const playMusic = (track) => {
 async function main() {
   let songs = await getSong();
   console.log(songs);
+
+
+  console.log(curentSong.src);
 
   let songAdd = document.querySelector(".songList").firstElementChild;
   console.log(songAdd);
@@ -115,8 +109,6 @@ async function main() {
         `;
   }
 
-  playMusic(songs[0].replaceAll("%20", " "));
-
   //atuch song
 
   Array.from(
@@ -129,6 +121,9 @@ async function main() {
       );
     });
   });
+
+
+  playMusic(songs[0] , true); //play first song
 
   //play fast song
 
