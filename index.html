@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySongPo - Music Streaming</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="utility.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="script.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="favicon.svg">
+</head>
+
+<body>
+    <div class="container-bar">
+        <div class="top flex items-center ">
+            <!-- With this -->
+
+            <!-- And remove this from the bottom of the file -->
+            <!-- <div class="hamburger-btn">
+                <img class="invert-color" src="items svg/hamburger.svg" alt="Menu">
+            </div> -->
+
+            <div class="logo flex justify-center items-center">
+                <img class="invert-color" src="logo.svg" alt="MySongPo Logo">
+            </div>
+            <div class="top-search-app-download flex items-center justify-space-between">
+
+
+                <div class="home-search flex items-center">
+                    <div class="home">
+                        <img class="invert-color" src="items svg/home.svg" alt="Home">
+                    </div>
+                    <div class="search-padding">
+                        <div class="search flex items-center">
+                            <div class="search-logo flex">
+                                <img class="invert-color" src="items svg/search.svg" alt="Search">
+                            </div>
+                            <div class="search-content flex items-center">
+                                <div class="search-text tages-color">
+                                    What do you want to play?
+                                </div>
+                                <div class="search-content-logo">
+                                    <img class="invert-color" src="items svg/search-content-logo.svg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="app-download-login-sign-up flex items-center">
+                    <div class="primium-support-download flex">
+                        <a href="#" class="tages-color text-decoration-none">Premium</a>
+                        <a href="#" class="tages-color text-decoration-none">Support</a>
+                        <a href="#" class="tages-color text-decoration-none">Download</a>
+                    </div>
+
+                    <div class="install-app flex hover">
+                        <img class="invert-color" src="items svg/download.svg" alt="">
+                        Install App
+
+                    </div>
+                    <div class="signUp-logIn flex items-center">
+                        <div class="sign-up tages-color">Sign up</div>
+                        <div class="login">Log in</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-body flex">
+        <div class="left">
+            <div class="navigation">
+                <a href="#" class="nav-link "><img class="invert-color" src="items svg/home.svg" alt="Home"> Home</a>
+                <a href="#" class="nav-link "><img class="invert-color" src="items svg/search.svg" alt="Search">
+                    Search</a>
+                <a href="#" class="nav-link ">Your Library</a>
+            </div>
+            <div class="library items-center justify-space-between flex">
+                <div class="library-title">Your Library</div>
+                <div class="plas"><img class="invert-color" src="items svg/plas.svg" alt="Add"></div>
+
+            </div>
+            <div class="playlist-container">
+                <div class="create-playlist">
+                    <div class="create-playlist-box">
+                        <div class="plus-icon"><img src="items svg/plas.svg" alt=""></div>
+                        <div class="create-text">Add Song</div>
+                        <div class="songList">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="playlist">
+                    <div class="playlist-item">Liked Songs</div>
+                    <div class="playlist-item">My Playlist #1</div>
+                    <div class="playlist-item">Discover Weekly</div>
+                    <div class="playlist-item">Release Radar</div>
+                    <div class="playlist-item">Daily Mix 1</div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Legal</a>
+                    <a href="#" class="footer-link">Privacy Center</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Cookies</a>
+                </div>
+                <div class="language-selector">
+                    <button class="language-btn">English</button>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="topbar">
+                <div class="navigation-arrows">
+                    <button class="nav-arrow prev">◀</button>
+                    <button class="nav-arrow next">▶</button>
+                </div>
+                <div class="user-menu">
+                    <div class="user-profile">User</div>
+                </div>
+            </div>
+            <div class="content-area">
+                <section class="featured-section">
+                    <h2>Good afternoon</h2>
+                    <div class="featured-grid">
+                        <div class="featured-item">
+                            <div class="featured-image"></div>
+                            <div class="featured-title">Liked Songs</div>
+                        </div>
+                        <div class="featured-item">
+                            <div class="featured-image"></div>
+                            <div class="featured-title">Daily Mix 1</div>
+                        </div>
+                        <div class="featured-item">
+                            <div class="featured-image"></div>
+                            <div class="featured-title">Discover Weekly</div>
+                        </div>
+                        <div class="featured-item">
+                            <div class="featured-image"></div>
+                            <div class="featured-title">Release Radar</div>
+                        </div>
+                    </div>
+                </section>
+                <section class="recently-played">
+                    <div class="section-header">
+                        <h2>Recently played</h2>
+                        <a href="#" class="show-all">Show all</a>
+                    </div>
+                    <div class="track-grid">
+                        <div class="track-card">
+                            <div class="track-image"></div>
+                            <div class="track-info">
+                                <div class="track-title">Song Title</div>
+                                <div class="track-artist">Artist Name</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="playbar">
+        <div class="playbar-content flex justify-space-between items-center">
+            <div class="now-playing flex items-center">
+                <div class="track-artwork"></div>
+                <div class="track-info">
+                    <div class="track-name">Song Title</div>
+                    <div class="track-artist tages-color">Artist Name</div>
+                </div>
+                <div class="like-button">♡</div>
+            </div>
+            <div class="layer-contrpols">
+                <div class="control-buttons flex justify-center">
+                    <button class="control-btn shuffle"></button>
+                    <button id="previous_song" class="control-btn previous invert-color flex items-center"><img src="items svg/previous_song.svg"
+                            alt=""></button>
+                    <button class="control-btn play-pause invert-color flex items-center"><img id="play" src="items svg/play.svg" alt=""></button>
+
+                    <button id="forward_song" class="control-btn next invert-color flex items-center"><img src="items svg/forward_song.svg" alt=""></button>
+                    <button class="control-btn repeat"></button>
+                </div>
+                <div class="progress-container flex items-center">
+                    <div class="current-time">00:00</div>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="total-time">00:00</div>
+                </div>
+            </div>
+            <div class="playback-options flex items-center">
+                <button class="option-btn lyrics">🎵</button>
+                <button class="option-btn devices">🔊</button>
+                <div class="volume-control flex items-center">
+                    <button class="volume-icon">🔊</button>
+                    <div class="volume-bar">
+                        <div class="volume-level"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add this after the container-bar div -->
+    <div class="mobile-menu">
+        <div class="mobile-nav">
+            <a href="#" class="mobile-nav-link active"><img class="invert-color" src="items svg/home.svg" alt="Home">
+                Home</a>
+            <a href="#" class="mobile-nav-link"><img class="invert-color" src="items svg/search.svg" alt="Search">
+                Search</a>
+            <a href="#" class="mobile-nav-link">Your Library</a>
+        </div>
+        <div class="mobile-playlists">
+            <h3>Your Playlists</h3>
+            <div class="mobile-playlist-item">Liked Songs</div>
+            <div class="mobile-playlist-item">My Playlist #1</div>
+            <div class="mobile-playlist-item">Discover Weekly</div>
+        </div>
+    </div>
+
+    <!-- Add this hamburger button inside the top div, after the logo -->
+    <div class="hamburger-btn">
+        <img class="invert-color" src="items svg/hamburger.svg" alt="Menu">
+    </div>
+    <!-- Add this right before the closing body tag -->
+    <div class="mobile-menu-overlay"></div>
+</body>
+
+</html>
