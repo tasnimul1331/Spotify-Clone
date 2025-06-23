@@ -43,15 +43,15 @@ async function getSong() {
   return song;
 }
 
-const playMusic = (track,pause = false) => {
+const playMusic = (track, pause = false) => {
   if (curentSong) {
     curentSong.pause();
   }
 
   curentSong = new Audio("/songs/" + track);
-  if(!pause){
-  curentSong.play();
-  play.src = "items svg/pause.svg";
+  if (!pause) {
+    curentSong.play();
+    play.src = "items svg/pause.svg";
   }
 
   document.querySelectorAll(".track-info").forEach((el) => {
@@ -62,7 +62,17 @@ const playMusic = (track,pause = false) => {
 
   // curentSong.addEventListener("timeupdate", () => {
   //   console.log(curentSong.currentTime, curentSong.duration);
-  // }); 
+  // });
+
+  curentSong.addEventListener("loadedmetadata", () => {
+    document.querySelector(".current-time").innerHTML = `${formatTime(
+      curentSong.currentTime
+    )}`;
+        document.querySelector(".total-time").innerHTML = `${formatTime(
+      curentSong.duration
+    )}`;
+    document.querySelector(".progress").style.width = "0%";
+  });
 
   curentSong.ontimeupdate = () => {
     console.log(curentSong.currentTime, curentSong.duration);
@@ -71,7 +81,10 @@ const playMusic = (track,pause = false) => {
     )}`;
     document.querySelector(".total-time").innerHTML = `${formatTime(
       curentSong.duration
-    )}`;  
+    )}`;
+
+    document.querySelector(".progress").style.width =
+      (curentSong.currentTime / curentSong.duration) * 100 + "%";
   };
 
   // document.querySelector("track-info").lastElementChild.innerHTML=track.replaceAll("%20", " ").split("-")[1].replace(".mp3", "")
@@ -80,7 +93,6 @@ const playMusic = (track,pause = false) => {
 async function main() {
   let songs = await getSong();
   console.log(songs);
-
 
   console.log(curentSong.src);
 
@@ -122,8 +134,10 @@ async function main() {
     });
   });
 
+  let rendomSongSelect = Math.round(Math.random() * (songs.length - 1));
+  console.log(rendomSongSelect);
 
-  playMusic(songs[0] , true); //play first song
+  playMusic(songs[rendomSongSelect], true); //play first song
 
   //play fast song
 
@@ -143,6 +157,24 @@ async function main() {
       play.src = "items svg/play.svg";
     }
   });
+
+  document.querySelector(".progress-bar").addEventListener("click", (e) => {
+
+  const bar = e.currentTarget;
+  const rect = bar.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const barWidth = rect.width;
+  console.log('clickX:', clickX, 'barWidth:', barWidth,'rect:', rect.left, 'clientX:', e.clientX);
+  
+
+  const percentage = Math.max(0, Math.min(clickX / barWidth, 1)); // clamp between 0 and 1
+  const seekTime = percentage * curentSong.duration;
+
+  curentSong.currentTime = seekTime;
+  document.querySelector(".progress").style.width = percentage * 100 + "%";
+  });
+
 }
 
-main();
+
+main()
