@@ -15,7 +15,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -36,6 +36,7 @@ body {
 
 .container-body {
   display: flex;
+  position: relative;
   flex-grow: 1;
   overflow: hidden;
   background-color: var(--left-right-div);
@@ -49,8 +50,6 @@ body {
   color: var(--tages-color);
 }
 
-
-
 .invert-color {
   filter: invert(var(--svg-color));
 }
@@ -63,7 +62,7 @@ body {
 }
 
 .left {
-  flex: 0 0 320px;
+  width: 320px;
   background-color: var(--left-right-div);
   overflow-y: auto;
   padding: 0;
@@ -89,25 +88,10 @@ body {
   color: var(--title-color);
 }
 
-.logo {
-  width: 48px;
-  height: 48px;
+.logo img {
+  width: 34px;
+  height: 34px;
   margin-right: 8px;
-}
-
-.home {
-  background-color: var(--sercle-bg-bar-color);
-  padding: 8px;
-  margin-left: 8px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home img {
-  width: 16px;
-  height: 16px;
 }
 
 .top-search-app-download {
@@ -139,15 +123,14 @@ body {
 }
 
 .search-text {
-  width: 330px;
-  padding: 0px 15px 0px 5px;
+  width: 300px;
+  padding: 0px 5px 0px 5px;
+  margin: 0 25px 0 0;
+  border-right: 1px solid var(--tages-color);
 }
 
-.search-content-logo {
-  height: 24px;
-  width: 24px;
-  padding: 0px 12px;
-  border-left: 1px solid var(--tages-color);
+.install-app {
+  display: flex;
 }
 
 .install-app img {
@@ -162,10 +145,11 @@ body {
   margin-left: 20px;
   gap: 5px;
   cursor: pointer;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .primium-support-download {
+  display: flex;
   height: 25px;
   padding: 0px 20px;
   gap: 15px;
@@ -196,7 +180,7 @@ body {
 }
 
 .login {
-  padding: 8px 32px;
+  padding: 8px 24px;
   background-color: var(--title-color);
   color: black;
   border-radius: 20px;
@@ -211,6 +195,8 @@ body {
 
 .playbar {
   height: 90px;
+  position: static;
+  bottom: 0;
   background-color: var(--playbar-color);
   flex-shrink: 0;
   padding: 8px 46px;
@@ -257,11 +243,12 @@ body {
 .playlist-container {
   padding: 0 16px;
   flex-grow: 1;
-  overflow-y: auto;
 }
 
 .create-playlist {
   margin-bottom: 16px;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .create-playlist-box {
@@ -300,7 +287,6 @@ body {
 .playlist {
   padding: 8px 0;
 }
-
 
 .playlist-item {
   color: var(--tages-color);
@@ -406,18 +392,18 @@ body {
   padding: 16px 0;
 }
 
-.featured-section h2, 
+.featured-section h2,
 .recently-played h2 {
   font-size: 24px;
   margin-bottom: 16px;
   font-weight: 700;
 }
 
-.songList{
+.songList {
   border-top: 2px solid gray;
 }
 
-.songList ul li{
+.songList ul li {
   list-style-type: decimal;
   display: flex;
   justify-content: space-between;
@@ -432,12 +418,11 @@ body {
   gap: 15px;
 }
 
-.songNameInfo >div {
+.songNameInfo > div {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 .featured-grid {
   display: grid;
@@ -497,6 +482,7 @@ body {
 }
 
 .track-card {
+  width: 200px;
   background-color: var(--card-color);
   padding: 16px;
   border-radius: 6px;
@@ -532,8 +518,6 @@ body {
   text-overflow: ellipsis;
 }
 
-
-
 .track-artwork {
   width: 56px;
   height: 56px;
@@ -561,8 +545,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
 
 .like-button {
   font-size: 16px;
@@ -620,7 +602,8 @@ body {
   gap: 8px;
 }
 
-.current-time, .total-time {
+.current-time,
+.total-time {
   font-size: 12px;
   color: var(--tages-color);
   width: 35px;
@@ -658,7 +641,6 @@ body {
   border-radius: 50%;
 } */
 
-
 .progress-bar {
   width: 300px;
   height: 4px;
@@ -674,11 +656,11 @@ body {
   background-color: var(--title-color);
   border-radius: 2px;
   position: relative;
-  transition: width .3s ease;
+  transition: width 0.3s ease;
 }
 
 .progress::after {
-  content: '';
+  content: "";
   position: absolute;
   right: -6px;
   top: -3.7px;
@@ -692,8 +674,6 @@ body {
 .progress-bar:hover .progress::after {
   display: block;
 }
-
-
 
 .playback-options {
   gap: 16px;
@@ -747,7 +727,7 @@ body {
 }
 
 .volume-level:hover::after {
-  content: '';
+  content: "";
   position: absolute;
   right: -6px;
   top: -4px;
@@ -827,9 +807,8 @@ body {
   width: 32px;
   height: 32px;
   padding: 4px;
-  margin-left: 16px;
+  margin: 0 12px;
 }
-
 
 /* Update media queries to show/hide hamburger button */
 /* @media (max-width: 768px) {
@@ -862,7 +841,6 @@ body {
   justify-content: center;
 }
 
-
 /* Touch-friendly controls for mobile */
 
 /* @media (max-width: 768px) {
@@ -883,109 +861,124 @@ body {
 
 /* Large Tablets */
 
-/* @media (max-width: 1200px) {
+@media (max-width: 1200px) {
   .featured-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
-  
+
   .track-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
-  
+
   .search-text {
-    width: 250px;
+    width: 240px;
   }
-} */
+}
 
-/* Small Tablets */
-
-/* @media (max-width: 992px) {
+@media (max-width: 1080px) {
   .primium-support-download {
     display: none;
   }
-  
-  .progress-container {
-    max-width: 400px;
-  }
-  
-  .left {
-    flex: 0 0 200px;
-  }
-  
   .search-text {
-    width: 200px;
+    width: 300px;
   }
-  
+  .app-download-login-sign-up,
+  .signUp-logIn {
+    gap: 25px;
+  }
+}
+
+/* Small Tablets */
+
+@media (max-width: 992px) {
   .featured-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
-} */
+}
 
 /* Mobile Landscape */
 
-/* @media (max-width: 768px) {
-  .container-body {
-    flex-direction: column;
-  }
-
-  .left {
-    flex: 0 0 auto;
-    width: 100%;
-    max-height: 200px;
-    order: 2;
-  }
-
-  .right {
-    flex: 1;
-    order: 1;
-  }
-  
+@media (max-width: 890px) {
   .playbar-content {
     flex-direction: column;
     gap: 8px;
     align-items: center;
   }
-  
+
   .playbar {
     height: auto;
     padding: 8px;
   }
-  
-  .now-playing, .playback-options {
+
+  .now-playing,
+  .playback-options {
     display: none;
   }
-  
+
   .player-controls {
     width: 100%;
   }
-  
-  .top-search-app-download {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .app-download-login-sign-up {
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 8px;
-  }
-  
-  .top {
-    height: auto;
-    padding: 12px;
-  }
-  
+
   .navigation-arrows {
     display: none;
   }
-  
+
   .topbar {
     justify-content: flex-end;
   }
-} */
+
+  .left {
+    width: 0px;
+    height: 100%;
+    transition: all 0.3s ease-in;
+    position: absolute;
+    z-index: 10;
+    overflow-y: auto;
+  }
+  .hamburger-btn {
+    display: block;
+  }
+  .install-app {
+    display: none;
+  }
+  .sign-up {
+    display: none;
+  }
+  .search-text {
+    width: 240px;
+  }
+}
+
+.hamburger-btn-manu {
+  position: absolute;
+  width: 320px;
+  height: 100%;
+  transition: all 0.3s ease-in;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+@media (max-width: 580px) {
+  .search-text {
+    display: none;
+  }
+  .search {
+    width: 40px;
+    justify-content: center;
+  }
+  .search-logo {
+    padding: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 450px) {
+  .progress-bar {
+    width: 200px;
+  }
+}
 
 /* Mobile Portrait */
-
 
 /* @media (max-width: 576px) {
   .search-text {
@@ -1057,8 +1050,6 @@ body {
     font-size: 10px;
   }
 } */
-
-
 
 /* Very Small Devices */
 /* 

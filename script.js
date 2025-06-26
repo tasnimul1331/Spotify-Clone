@@ -57,6 +57,10 @@ const playMusic = (track, pause = false) => {
   document.querySelectorAll(".track-info").forEach((el) => {
     if (el.firstElementChild) {
       el.firstElementChild.innerHTML = decodeURI(track);
+      el.lastElementChild.innerHTML = track
+        .replaceAll("%20", " ")
+        .split("-")[1]
+        .replace(".mp3", "");
     }
   });
 
@@ -68,7 +72,7 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".current-time").innerHTML = `${formatTime(
       curentSong.currentTime
     )}`;
-        document.querySelector(".total-time").innerHTML = `${formatTime(
+    document.querySelector(".total-time").innerHTML = `${formatTime(
       curentSong.duration
     )}`;
     document.querySelector(".progress").style.width = "0%";
@@ -159,22 +163,46 @@ async function main() {
   });
 
   document.querySelector(".progress-bar").addEventListener("click", (e) => {
+    const bar = e.currentTarget;
+    const rect = bar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const barWidth = rect.width;
+    console.log(
+      "clickX:",
+      clickX,
+      "barWidth:",
+      barWidth,
+      "rect:",
+      rect.left,
+      "clientX:",
+      e.clientX
+    );
 
-  const bar = e.currentTarget;
-  const rect = bar.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const barWidth = rect.width;
-  console.log('clickX:', clickX, 'barWidth:', barWidth,'rect:', rect.left, 'clientX:', e.clientX);
-  
+    const percentage = Math.max(0, Math.min(clickX / barWidth, 1)); // clamp between 0 and 1
+    const seekTime = percentage * curentSong.duration;
 
-  const percentage = Math.max(0, Math.min(clickX / barWidth, 1)); // clamp between 0 and 1
-  const seekTime = percentage * curentSong.duration;
-
-  curentSong.currentTime = seekTime;
-  document.querySelector(".progress").style.width = percentage * 100 + "%";
+    curentSong.currentTime = seekTime;
+    document.querySelector(".progress").style.width = percentage * 100 + "%";
   });
 
+  
+  let invertImg = false;
+  // hamburger menu show and hide
+  document.querySelector(".hamburger-btn").addEventListener("click", () => {
+    document.querySelector(".left").classList.toggle("hamburger-btn-manu");
+
+    
+
+    if(invertImg){
+      document.querySelector(".hamburger-btn img").src = "items svg/hamburger.svg";
+      document.querySelector(".hamburger-btn").style.transform = "rotate(0deg)";
+      invertImg = false;
+    }else{
+      document.querySelector(".hamburger-btn img").src = "items svg/plas.svg";
+      document.querySelector(".hamburger-btn").style.transform = "rotate(45deg)";
+      invertImg = true;
+    }
+  });
 }
 
-
-main()
+main();
