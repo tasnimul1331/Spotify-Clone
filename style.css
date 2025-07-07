@@ -416,6 +416,7 @@ body {
 .songNameInfo {
   width: 85%;
   gap: 15px;
+  align-items: center;
 }
 
 .songNameInfo > div {
@@ -547,11 +548,17 @@ body {
 }
 
 .like-button {
-  font-size: 16px;
+  font-size: 24px;
   color: var(--tages-color);
   cursor: pointer;
   transition: color 0.3s;
 }
+
+.song_icon{
+  width: 24px;
+  height: 24px;
+}
+
 
 .like-button:hover {
   color: var(--title-color);
@@ -719,22 +726,29 @@ body {
 }
 
 .volume-level {
-  width: 70%;
+  width: 0%; /* Example progress */
   height: 100%;
   background-color: var(--title-color);
   border-radius: 2px;
   position: relative;
+  transition: width 0.3s ease;
+  
 }
 
-.volume-level:hover::after {
+.volume-level::after {
   content: "";
   position: absolute;
   right: -6px;
-  top: -4px;
+  top: -3.7px;
   width: 12px;
   height: 12px;
   background-color: var(--title-color);
   border-radius: 50%;
+  display: none;
+}
+
+.volume-bar:hover .volume-level::after {
+  display: block;
 }
 
 /* Add these styles at the end of your style.css file */

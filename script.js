@@ -1,5 +1,6 @@
 console.log("run javascript");
 let curentSong = new Audio();
+let crrFolder;
 
 function formatTime(seconds) {
   if (isNaN(seconds)) return "0:00";
@@ -10,8 +11,9 @@ function formatTime(seconds) {
   return `${mins}:${formattedSecs}`;
 }
 
-async function getSong() {
-  let a = await fetch("/songs/");
+async function getSong(folder) {
+  crrFolder = folder;
+  let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -25,13 +27,13 @@ async function getSong() {
 
   for (let i = 0; i < ahrf.length; i++) {
     if (ahrf[i].href.endsWith(".mp3")) {
-      song.push(ahrf[i].href.split("/songs/")[1]);
+      song.push(ahrf[i].href.split(`${crrFolder}`)[1]);
     }
   }
 
   // ahrf.forEach((element) => {
   //   if (element.href.endsWith(".mp3")) {
-  //     song.push(element.href.split("/songs/")[1]);
+  //     song.push(element.href.split("${folder}")[1]);
   //   }
   // });
 
@@ -48,7 +50,7 @@ const playMusic = (track, pause = false) => {
     curentSong.pause();
   }
 
-  curentSong = new Audio("/songs/" + track);
+  curentSong = new Audio(`${crrFolder}` + track);
   if (!pause) {
     curentSong.play();
     play.src = "items svg/pause.svg";
@@ -79,7 +81,7 @@ const playMusic = (track, pause = false) => {
   });
 
   curentSong.ontimeupdate = () => {
-    console.log(curentSong.currentTime, curentSong.duration);
+    // console.log(curentSong.currentTime, curentSong.duration);
     document.querySelector(".current-time").innerHTML = `${formatTime(
       curentSong.currentTime
     )}`;
@@ -95,7 +97,7 @@ const playMusic = (track, pause = false) => {
 };
 
 async function main() {
-  let songs = await getSong();
+  let songs = await getSong("/songs/song_add/");
   console.log(songs);
 
   console.log(curentSong.src);
@@ -111,7 +113,7 @@ async function main() {
       `
         <li>
             <div class=" songNameInfo flex">
-                <img class="invert-color" src="items svg/music.svg" alt="">
+                <img class="invert-color song_icon" src="items svg/music.svg" alt="">
                 <div>
                     <div class="track-title" >${songu}</div>
                     <div class="track-artist">${songu
@@ -185,22 +187,85 @@ async function main() {
     document.querySelector(".progress").style.width = percentage * 100 + "%";
   });
 
-  
+
+  let clamped = 0.5; // default volume level
+  curentSong.volume = clamped; // set initial volume
+  document.querySelector(".volume-level").style.width = "50%";
+
+  document.querySelector(".volume-bar").addEventListener("click", (e) => {
+    const bar = e.currentTarget;
+    const rect = bar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const barWidth = rect.width;
+    console.log(clickX, barWidth, rect.left, e.clientX);
+
+    const percent = clickX / barWidth;
+    clamped = Math.min(Math.max(percent, 0), 1);
+    curentSong.volume = clamped;
+
+    document.querySelector(".volume-level").style.width = clamped * 100 + "%";
+  });
+
+  volume_muit_unmuit.addEventListener("click", () => {
+    if (curentSong.volume > 0) {
+      curentSong.volume = 0;
+      document.querySelector(".volume-level").style.width = "0%";
+      document.querySelector(".volume-icon img").src =
+        "items svg/volume-mute.svg";
+    } else {
+      curentSong.volume = clamped; // reset to default volume level
+      document.querySelector(".volume-level").style.width = clamped * 100 + "%";
+      document.querySelector(".volume-icon img").src = "items svg/volume.svg";
+    }
+  });
+
+
+
   let invertImg = false;
   // hamburger menu show and hide
   document.querySelector(".hamburger-btn").addEventListener("click", () => {
     document.querySelector(".left").classList.toggle("hamburger-btn-manu");
 
-    
-
-    if(invertImg){
-      document.querySelector(".hamburger-btn img").src = "items svg/hamburger.svg";
+    if (invertImg) {
+      document.querySelector(".hamburger-btn img").src =
+        "items svg/hamburger.svg";
       document.querySelector(".hamburger-btn").style.transform = "rotate(0deg)";
       invertImg = false;
-    }else{
+    } else {
       document.querySelector(".hamburger-btn img").src = "items svg/plas.svg";
-      document.querySelector(".hamburger-btn").style.transform = "rotate(45deg)";
+      document.querySelector(".hamburger-btn").style.transform =
+        "rotate(45deg)";
       invertImg = true;
+    }
+  });
+
+  // previous song and next song
+  previous_song.addEventListener("click", () => {
+    if (rendomSongSelect > 0) {
+      rendomSongSelect--;
+      playMusic(songs[rendomSongSelect]);
+    } else {
+      rendomSongSelect = songs.length - 1;
+      playMusic(songs[rendomSongSelect]);
+    }
+    console.log("previous song clicked");
+  });
+
+  forward_song.addEventListener("click", () => {
+    console.log("previous song clicked");
+    // let index = songs.indexOf(
+    //   curentSong.src.split("${folder}")[1]
+    // );
+
+    if (rendomSongSelect < songs.length - 1) {
+      // playMusic(songs[index + 1]);
+      rendomSongSelect++;
+      playMusic(songs[rendomSongSelect]);
+      console.log(rendomSongSelect);
+    } else {
+      // playMusic(songs[0]);
+      rendomSongSelect = 0;
+      playMusic(songs[rendomSongSelect]);
     }
   });
 }
