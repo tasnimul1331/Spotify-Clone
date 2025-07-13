@@ -117,9 +117,9 @@
             </div>
             <div class="content-area">
                 <section class="featured-section">
-                    <h2>Good afternoon</h2>
+                    <h2>Albums</h2>
                     <div class="featured-grid">
-                        <div class="featured-item">
+                        <!-- <div class="featured-item">
                             <div class="featured-image"></div>
                             <div class="featured-title">Liked Songs</div>
                         </div>
@@ -134,21 +134,34 @@
                         <div class="featured-item">
                             <div class="featured-image"></div>
                             <div class="featured-title">Release Radar</div>
+                        </div> -->
+
+                        <div data-alubm="tahsan" class="track-card">
+                            <div class="track-image"></div>
+                            <div class="track-info">
+                                <div class="track-title">Tahsan - Albums</div>
+                            </div>
                         </div>
+
+                        <div data-alubm="mithila" class="track-card">
+                            <div class="track-image"></div>
+                            <div class="track-info">
+                                <div class="track-title">Mithila - Albums</div>
+                            </div>
+                        </div>
+
                     </div>
+
+
                 </section>
                 <section class="recently-played">
                     <div class="section-header">
-                        <h2>Recently played</h2>
+                        <h2>Songs</h2>
                         <a href="#" class="show-all">Show all</a>
                     </div>
-                    <div class="track-grid">
-                        <div class="track-card">
-                            <div class="track-image"></div>
-                            <div class="track-info">
-                                <div class="track-title">Song Title</div>
-                                <div class="track-artist">Artist Name</div>
-                            </div>
+                    <div class="track-grid" id="songAdd">
+                        <div>
+
                         </div>
                     </div>
                 </section>
@@ -166,7 +179,7 @@
                     <div class="track-name">Song Title</div>
                     <div class="track-artist tages-color">Artist Name</div>
                 </div>
-                <div class="like-button">♡</div>
+                <div class="like-button invert-color"><img src="items svg/favorite.svg" alt=""></div>
             </div>
             <div class="layer-contrpols">
                 <div class="control-buttons flex justify-center">
@@ -190,7 +203,8 @@
             </div>
             <div class="playback-options flex items-center">
                 <div class="volume-control flex items-center">
-                    <button class="volume-icon" ><img class="invert-color" id="volume_muit_unmuit" src="items svg/volume.svg" alt=""></button>
+                    <button class="volume-icon"><img class="invert-color" id="volume_muit_unmuit"
+                            src="items svg/volume.svg" alt=""></button>
                     <div class="volume-bar">
                         <div class="volume-level"></div>
                     </div>
