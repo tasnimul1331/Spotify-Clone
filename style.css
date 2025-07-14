@@ -74,6 +74,8 @@ body {
   flex: 1;
   background: linear-gradient(to bottom, #3a3a3a, var(--left-right-div) 400px);
   overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
   padding: 16px;
   position: relative;
 }

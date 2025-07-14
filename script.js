@@ -133,6 +133,26 @@ const playMusic = (track, pause = false) => {
   };
 };
 
+
+async function displayAlbums() {
+
+  let a = await fetch(`http://127.0.0.1:3000/songs/albums/`);
+  let response = await a.text();
+  let div = document.createElement("div");
+  div.innerHTML = response;
+  let ahrf = div.getElementsByTagName("a");
+  
+  Array.from(ahrf).forEach((element) => {
+    if(element.href.includes("/songs/albums")){
+      console.log(element.href.split("/").slice(-2)[0]);
+    }
+  });
+  
+
+}
+
+
+
 async function main() {
   let alubms;
   let songs = await getSong("/songs/song_add/");
@@ -140,6 +160,7 @@ async function main() {
   console.log(songs);
 
   console.log(curentSong.src);
+  displayAlbums();
 
   let rendomSongSelect = Math.round(Math.random() * (songs.length - 1));
   console.log(rendomSongSelect);
