@@ -258,13 +258,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.create-playlist-box:hover {
-  background-color: #333;
+.playSong{
+  cursor: pointer;
 }
+
+/* .create-playlist-box:hover {
+  background-color: #333;
+} */
 
 .plus-icon {
   width: 24px;

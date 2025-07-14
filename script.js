@@ -2,6 +2,9 @@ console.log("run javascript");
 let curentSong = new Audio();
 let crrFolder;
 let crrAlubmsFolders;
+let album_name;
+let albumSongNo;
+let curentSongAlbumeOrNot = false;
 
 function formatTime(seconds) {
   if (isNaN(seconds)) return "0:00";
@@ -46,7 +49,6 @@ async function getSong(folder) {
   return song;
 }
 
-
 async function getSongAlbums(folder) {
   crrAlubmsFolders = folder;
   let a = await fetch(`http://127.0.0.1:3000/${folder}/`);
@@ -81,99 +83,80 @@ async function getSongAlbums(folder) {
   return song;
 }
 
-
-
-
-
-
 const playMusic = (track, pause = false) => {
   if (curentSong) {
     curentSong.pause();
   }
 
-  curentSong = new Audio(`${crrFolder}` + track);
+  curentSong = new Audio(`songs/` + track);
   if (!pause) {
     curentSong.play();
     play.src = "items svg/pause.svg";
   }
 
-  // document.querySelectorAll(".track-info").lastElementChild.forEach((el) => {
-  //   if (el.firstElementChild) {
-  //     el.firstElementChild.innerHTML = decodeURI(track);
-  //     el.lastElementChild.innerHTML = track
-  //       .replaceAll("%20", " ")
-  //       .split("-")[1]
-  //       .replace(".mp3", "");
-  //   }
-  // });
+  const trackParts = track.replaceAll("%20", " ").split("-");
+  const artistName =
+    trackParts.length > 1
+      ? trackParts[1].replace(".mp3", "")
+      : "Unknown Artist";
+  document.querySelector(
+    ".now-playing"
+  ).children[1].firstElementChild.innerHTML = decodeURI(
+    track.split("/")[track.split("/").length - 1]
+  );
 
-
-  document.querySelector(".now-playing").children[1].firstElementChild.innerHTML= decodeURI(track);
-  document.querySelector(".now-playing").children[1].lastElementChild.innerHTML =
-    track.replaceAll("%20", " ").split("-")[1].replace(".mp3", "");
-  
-  
-  // document.querySelector(".track-info").lastElementChild.innerHTML =
-  //   track.replaceAll("%20", " ").split("-")[1].replace(".mp3", "");
-
-
-  // curentSong.addEventListener("timeupdate", () => {
-  //   console.log(curentSong.currentTime, curentSong.duration);
-  // });
+  document.querySelector(
+    ".now-playing"
+  ).children[1].lastElementChild.innerHTML = artistName;
 
   curentSong.addEventListener("loadedmetadata", () => {
-    document.querySelector(".current-time").innerHTML = `${formatTime(
+    document.querySelector(".current-time").innerHTML = formatTime(
       curentSong.currentTime
-    )}`;
-    document.querySelector(".total-time").innerHTML = `${formatTime(
+    );
+    document.querySelector(".total-time").innerHTML = formatTime(
       curentSong.duration
-    )}`;
+    );
     document.querySelector(".progress").style.width = "0%";
   });
 
   curentSong.ontimeupdate = () => {
     // console.log(curentSong.currentTime, curentSong.duration);
-    document.querySelector(".current-time").innerHTML = `${formatTime(
+    document.querySelector(".current-time").innerHTML = formatTime(
       curentSong.currentTime
-    )}`;
-    document.querySelector(".total-time").innerHTML = `${formatTime(
+    );
+    document.querySelector(".total-time").innerHTML = formatTime(
       curentSong.duration
-    )}`;
+    );
 
     document.querySelector(".progress").style.width =
       (curentSong.currentTime / curentSong.duration) * 100 + "%";
   };
-
-  
 };
 
 async function main() {
+  let alubms;
   let songs = await getSong("/songs/song_add/");
-  let alubms = await getSongAlbums("/songs/albums/tahsan/");
+
   console.log(songs);
-  console.log(alubms);
 
   console.log(curentSong.src);
-  
+
   let rendomSongSelect = Math.round(Math.random() * (songs.length - 1));
   console.log(rendomSongSelect);
 
-
   // let songAdd = document.querySelector(".songList").firstElementChild;
-
-
-
 
   let songAdd = document.getElementById("songAdd");
 
   let songs_adds = "";
-  
-for (const song of songs) {
-  let songu = song.replaceAll("%20", " ");
 
-  let songTitle = songu;
-  let songArtist = songu.split("-")[1]?.replace(".mp3", "") || "Unknown Artist";
-  songs_adds += `
+  for (const song of songs) {
+    let songu = song.replaceAll("%20", " ");
+
+    let songTitle = songu;
+    let songArtist =
+      songu.split("-")[1]?.replace(".mp3", "") || "Unknown Artist";
+    songs_adds += `
     <div class="track-card">
       <div class="track-image"></div>
       <div class="track-info">
@@ -182,44 +165,43 @@ for (const song of songs) {
       </div>
     </div>
   `;
-}
+  }
 
   songAdd.innerHTML = songs_adds;
 
-    //         <li>
-    //     <div class=" songNameInfo flex">
-    //         <img class="invert-color song_icon" src="items svg/music.svg" alt="">
-    //         <div>
-    //             <div class="track-title" >${songu}</div>
-    //             <div class="track-artist">${songu
-    //               .split("-")[1]
-    //               .replace(".mp3", "")}</div>
-    //         </div>
-    //     </div>
+  //         <li>
+  //     <div class=" songNameInfo flex">
+  //         <img class="invert-color song_icon" src="items svg/music.svg" alt="">
+  //         <div>
+  //             <div class="track-title" >${songu}</div>
+  //             <div class="track-artist">${songu
+  //               .split("-")[1]
+  //               .replace(".mp3", "")}</div>
+  //         </div>
+  //     </div>
 
-    //         <img class="invert-color" src="items svg/play.svg" alt="">
-    // </li>
-  
-
+  //         <img class="invert-color" src="items svg/play.svg" alt="">
+  // </li>
 
   //atuch song
 
   Array.from(
     document.querySelector(".track-grid").querySelectorAll(".track-card")
-  ).forEach((e,index) => {
+  ).forEach((e, index) => {
     e.addEventListener("click", () => {
       rendomSongSelect = index;
+      curentSongAlbumeOrNot = false;
       playMusic(
-        e.querySelector(".track-info").firstElementChild
-          .innerHTML
+        "song_add/" + e.querySelector(".track-info").firstElementChild.innerHTML
       );
-      console.log('song clicked:', e.querySelector(".track-title").innerHTML, index);
-      
+      console.log(
+        "song clicked:" + e.querySelector(".track-title").innerHTML,
+        index
+      );
     });
   });
 
-
-  playMusic(songs[rendomSongSelect], true); //play first song
+  playMusic("song_add/" + songs[rendomSongSelect], true); //play first song
 
   //play fast song
 
@@ -314,14 +296,25 @@ for (const song of songs) {
 
   // previous song and next song
   previous_song.addEventListener("click", () => {
-    if (rendomSongSelect > 0) {
-      rendomSongSelect--;
-      playMusic(songs[rendomSongSelect]);
+    if (curentSongAlbumeOrNot) {
+      if (rendomSongSelect > 0) {
+        rendomSongSelect--;
+        playMusic(`albums/${album_name}/` + alubms[rendomSongSelect]);
+      } else {
+        rendomSongSelect = alubms.length - 1;
+        playMusic(`albums/${album_name}/` + alubms[rendomSongSelect]);
+      }
+      console.log("previous song clicked");
     } else {
-      rendomSongSelect = songs.length - 1;
-      playMusic(songs[rendomSongSelect]);
+      if (rendomSongSelect > 0) {
+        rendomSongSelect--;
+        playMusic("song_add/" + songs[rendomSongSelect]);
+      } else {
+        rendomSongSelect = songs.length - 1;
+        playMusic("song_add/" + songs[rendomSongSelect]);
+      }
+      console.log("previous song clicked");
     }
-    console.log("previous song clicked");
   });
 
   forward_song.addEventListener("click", () => {
@@ -329,16 +322,82 @@ for (const song of songs) {
     //   curentSong.src.split("${folder}")[1]
     // );
 
-    if (rendomSongSelect < songs.length - 1) {
-      // playMusic(songs[index + 1]);
-      rendomSongSelect++;
-      playMusic(songs[rendomSongSelect]);
-      console.log(rendomSongSelect);
+    if (curentSongAlbumeOrNot) {
+      if (rendomSongSelect < alubms.length - 1) {
+        // playMusic(songs[index + 1]);
+        rendomSongSelect++;
+        playMusic(`albums/${album_name}/` + alubms[rendomSongSelect]);
+        console.log(rendomSongSelect);
+      } else {
+        // playMusic(songs[0]);
+        rendomSongSelect = 0;
+        playMusic(`albums/${album_name}/` + alubms[rendomSongSelect]);
+      }
     } else {
-      // playMusic(songs[0]);
-      rendomSongSelect = 0;
-      playMusic(songs[rendomSongSelect]);
+      if (rendomSongSelect < songs.length - 1) {
+        // playMusic(songs[index + 1]);
+        rendomSongSelect++;
+        playMusic("song_add/" + songs[rendomSongSelect]);
+        console.log(rendomSongSelect);
+      } else {
+        // playMusic(songs[0]);
+        rendomSongSelect = 0;
+        playMusic("song_add/" + songs[rendomSongSelect]);
+      }
     }
+  });
+
+  Array.from(document.getElementsByClassName("albums-song")).forEach((e) => {
+    e.addEventListener("click", async (item) => {
+      album_name = item.currentTarget.dataset.alubm;
+      alubms = await getSongAlbums(`/songs/albums/${album_name}/`);
+
+      console.log(album_name);
+      curentSongAlbumeOrNot = true;
+
+      let alubmSongAdd = document.getElementById("alubmSongAdd");
+      let alubm_songs_adds = "";
+      for (const alubm of alubms) {
+        let songu = alubm.replaceAll("%20", " ");
+        let songTitle = songu;
+        let songArtist =
+          songu.split("-")[1]?.replace(".mp3", "") || "Unknown Artist";
+
+        alubm_songs_adds += `
+  <li class="playSong">
+    <div class="songNameInfo flex">
+      <img class="invert-color song_icon" src="items svg/music.svg" alt="">
+      <div class="albums_song_play">
+        <div class="track-title">${songTitle}</div>
+        <div class="track-artist">${songArtist}</div>
+      </div>
+    </div>
+    <img class="invert-color" src="items svg/play.svg" alt="">
+  </li>
+`;
+      }
+
+      alubmSongAdd.innerHTML = alubm_songs_adds;
+
+      Array.from(
+        document.getElementById("alubmSongAdd").querySelectorAll(".playSong")
+      ).forEach((e, index) => {
+        e.addEventListener("click", () => {
+          rendomSongSelect = index;
+
+          playMusic(
+            `albums/${album_name}/` +
+              e.querySelector(".albums_song_play").firstElementChild.innerHTML
+          );
+          console.log(
+            "song clicked:",
+            `albums/${album_name}/` +
+              e.querySelector(".albums_song_play").firstElementChild.innerHTML,
+            index
+          );
+        });
+      });
+    });
   });
 }
 
