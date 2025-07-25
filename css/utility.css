@@ -68,3 +68,53 @@
 .hover:hover{
   color: var(--title-color);
 }
+
+
+/* Container width utility classes */
+.container {
+  width: 100%;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Responsive container sizes */
+@media (min-width: var(--breakpoint-sm)) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: var(--breakpoint-md)) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: var(--breakpoint-lg)) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: var(--breakpoint-xl)) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: var(--breakpoint-xxl)) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* Fluid container that always takes full width */
+.container-fluid {
+  width: 100%;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  margin-right: auto;
+  margin-left: auto;
+}

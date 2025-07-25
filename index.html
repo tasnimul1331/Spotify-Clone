@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <meta name="description" content="MySongPo - Modern Music Streaming Platform">
     <title>MySongPo - Music Streaming</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utility.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utility.css">
+    <script src="js/script.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <script src="script.js" defer></script>
+
     <link rel="icon" type="image/x-icon" href="favicon.svg">
 </head>
 
@@ -79,7 +82,7 @@
             <div class="playlist-container">
                 <div class="create-playlist">
                     <div class="create-playlist-box">
-                        <div class="create-text">Song List</div>
+                        <div class="create-text">Show Albums Songs</div>
                         <div class="songList">
                             <ul id="alubmSongAdd"></ul>
                         </div>
@@ -156,17 +159,29 @@
                 </section>
                 <section class="recently-played">
                     <div class="section-header">
-                        <h2>Songs</h2>
+                        <h2>Unknown Albums Songs</h2>
                         <a href="#" class="show-all">Show all</a>
                     </div>
                     <div class="track-grid" id="songAdd">
                         <div>
-
                         </div>
                     </div>
                 </section>
+                <section class="recently-played">
+                    <div class="section-header">
+                        <h2>favorite Songs</h2>
+                        <a href="#" class="show-all"><img class="invert-color" id="copyFavoriteSong"
+                                src="items svg/copy.svg" alt="Add"></a>
+                    </div>
             </div>
+            <div class="track-grid" id="songfevAdd">
+                <div>
+
+                </div>
+            </div>
+            </section>
         </div>
+    </div>
     </div>
 
 
@@ -179,7 +194,7 @@
                     <div class="track-name">Song Title</div>
                     <div class="track-artist tages-color">Artist Name</div>
                 </div>
-                <div class="like-button invert-color"><img src="items svg/favorite.svg" alt=""></div>
+                <div class="like-button invert-color favoritesSongs"><img src="items svg/favorite.svg" alt=""></div>
             </div>
             <div class="layer-contrpols">
                 <div class="control-buttons flex justify-center">
@@ -215,7 +230,7 @@
 
 
     <!-- Add this after the container-bar div -->
-    <div class="mobile-menu">
+    <!-- <div class="mobile-menu">
         <div class="mobile-nav">
             <a href="#" class="mobile-nav-link active"><img class="invert-color" src="items svg/home.svg" alt="Home">
                 Home</a>
@@ -229,10 +244,11 @@
             <div class="mobile-playlist-item">My Playlist #1</div>
             <div class="mobile-playlist-item">Discover Weekly</div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Add this right before the closing body tag -->
-    <div class="mobile-menu-overlay"></div>
+    <!-- <div class="mobile-menu-overlay"></div> -->
+    <!-- Move this script tag to the head with defer attribute (which you already have) -->
 </body>
 
 </html>
