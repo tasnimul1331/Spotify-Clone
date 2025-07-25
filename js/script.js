@@ -357,23 +357,6 @@ async function main() {
 
   songAdd.innerHTML = songs_adds;
 
-  //         <li>
-  //     <div class=" songNameInfo flex">
-  //         <img class="invert-color song_icon" src="items svg/music.svg" alt="">
-  //         <div>
-  //             <div class="track-title" >${songu}</div>
-  //             <div class="track-artist">${songu
-  //               .split("-")[1]
-  //               .replace(".mp3", "")}</div>
-  //         </div>
-  //     </div>
-
-  //         <img class="invert-color" src="items svg/play.svg" alt="">
-
-  // </li>
-
-  //atuch song
-
   let all_songs = Array.from(
     document.querySelector(".track-grid").querySelectorAll(".track-card")
   );
@@ -395,15 +378,7 @@ async function main() {
 
   playMusic("song_add/" + songs[rendomSongSelect], true); //play first song
 
-  //play fast song
 
-  // var audio = new Audio(songs[4]);
-  // audio.play();
-
-  // audio.addEventListener("loadeddata", () => {
-  //   let duration = audio.duration;
-  //   console.log(duration);
-  // });
   play.addEventListener("click", () => {
     if (curentSong.paused) {
       curentSong.play();
@@ -562,18 +537,6 @@ async function main() {
     }
   });
 
-  // document.querySelectorAll(".favoritesSongs").addEventListener("click", () => {
-  //   // if (curentSongAlbumeOrNot) {
-  //   //   const currentSongPath = `albums/${album_name}/` + albums[rendomSongSelect];
-  //   //   // addToFavoritesSong(currentSongPath);
-  //   //   console.log(`Added to favorites: ${currentSongPath}`);
-  //   // } else {
-  //   //   const currentSongPath = "song_add/" + songs[rendomSongSelect];
-  //   //   // addToFavoritesSong(currentSongPath);
-  //   //   console.log(`Added to favorites: ${currentSongPath}`);
-  //   // }
-  //   console.log(`Added to favorites: `);
-  // });
 
   favoriteButtons = document.querySelector(".favoritesSongs");
   console.log(
@@ -615,136 +578,3 @@ async function main() {
 }
 
 main();
-
-// Add this to your existing script.js file
-// document.addEventListener('DOMContentLoaded', function() {
-//   // Mobile menu toggle
-//   const hamburgerBtn = document.querySelector('.hamburger-btn');
-//   const mobileMenu = document.querySelector('.mobile-menu');
-//   const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-//   const leftPanel = document.querySelector('.left');
-
-//   function toggleMobileMenu() {
-//     mobileMenu.classList.toggle('show');
-//     mobileMenuOverlay.classList.toggle('show');
-//     document.body.classList.toggle('menu-open');
-
-//     // Toggle hamburger icon
-//     const hamburgerImg = document.querySelector('.hamburger-btn img');
-//     if (mobileMenu.classList.contains('show')) {
-//       hamburgerImg.src = 'items svg/plas.svg';
-//       document.querySelector('.hamburger-btn').style.transform = 'rotate(45deg)';
-//     } else {
-//       hamburgerImg.src = 'items svg/hamburger.svg';
-//       document.querySelector('.hamburger-btn').style.transform = 'rotate(0deg)';
-//     }
-//   }
-
-//   // Remove any existing event listeners and add a new one
-//   hamburgerBtn.removeEventListener('click', toggleMobileMenu);
-//   hamburgerBtn.addEventListener('click', toggleMobileMenu);
-
-//   mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
-
-//   // Close mobile menu when clicking on a link
-//   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-//   mobileNavLinks.forEach(link => {
-//     link.addEventListener('click', function() {
-//       if (mobileMenu.classList.contains('show')) {
-//         toggleMobileMenu();
-//       }
-//     });
-//   });
-// });
-
-// // Remove the old hamburger menu code from the main function (around line 430)
-// // Delete or comment out this block:
-// /*
-// let invertImg = false;
-// // hamburger menu show and hide
-// document.querySelector(".hamburger-btn").addEventListener("click", () => {
-//   document.querySelector(".left").classList.toggle("hamburger-btn-manu");
-
-//   if (invertImg) {
-//     document.querySelector(".hamburger-btn img").src =
-//       "items svg/hamburger.svg";
-//     document.querySelector(".hamburger-btn").style.transform = "rotate(0deg)";
-//     invertImg = false;
-//   } else {
-//     document.querySelector(".hamburger-btn img").src = "items svg/plas.svg";
-//     document.querySelector(".hamburger-btn").style.transform =
-//       "rotate(45deg)";
-//     invertImg = true;
-//   }
-// });
-// */
-
-//   // Handle touch events for better mobile experience
-//   const progressBar = document.querySelector('.progress-bar');
-//   const volumeBar = document.querySelector('.volume-bar');
-
-//   // Add touch events for progress bar
-//   progressBar.addEventListener('touchstart', handleProgressTouch);
-//   progressBar.addEventListener('touchmove', handleProgressTouch);
-
-//   function handleProgressTouch(e) {
-//     e.preventDefault();
-//     const touch = e.touches[0];
-//     const bar = e.currentTarget;
-//     const rect = bar.getBoundingClientRect();
-//     const touchX = touch.clientX - rect.left;
-//     const barWidth = rect.width;
-
-//     const percentage = Math.max(0, Math.min(touchX / barWidth, 1));
-//     const seekTime = percentage * curentSong.duration;
-
-//     curentSong.currentTime = seekTime;
-//     document.querySelector('.progress').style.width = percentage * 100 + '%';
-//   }
-
-//   // Add touch events for volume bar
-//   volumeBar.addEventListener('touchstart', handleVolumeTouch);
-//   volumeBar.addEventListener('touchmove', handleVolumeTouch);
-
-//   function handleVolumeTouch(e) {
-//     e.preventDefault();
-//     const touch = e.touches[0];
-//     const bar = e.currentTarget;
-//     const rect = bar.getBoundingClientRect();
-//     const touchX = touch.clientX - rect.left;
-//     const barWidth = rect.width;
-
-//     const percent = touchX / barWidth;
-//     const clamped = Math.min(Math.max(percent, 0), 1);
-//     curentSong.volume = clamped;
-
-//     document.querySelector('.volume-level').style.width = clamped * 100 + '%';
-//   }
-
-//   // Add swipe detection for mobile
-//   let touchStartX = 0;
-//   let touchEndX = 0;
-
-//   document.addEventListener('touchstart', e => {
-//     touchStartX = e.changedTouches[0].screenX;
-//   });
-
-//   document.addEventListener('touchend', e => {
-//     touchEndX = e.changedTouches[0].screenX;
-//     handleSwipe();
-//   });
-
-//   function handleSwipe() {
-//     const swipeThreshold = 100;
-//     if (touchEndX < touchStartX - swipeThreshold) {
-//       // Swipe left - show menu
-//       if (!mobileMenu.classList.contains('show')) {
-//         toggleMobileMenu();
-//       }
-//     } else if (touchEndX > touchStartX + swipeThreshold) {
-//       // Swipe right - hide menu
-//       if (mobileMenu.classList.contains('show')) {
-//         toggleMobileMenu();
-//       }
-//     }
-//   }
