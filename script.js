@@ -133,25 +133,93 @@ const playMusic = (track, pause = false) => {
   };
 };
 
-
 async function displayAlbums() {
-
   let a = await fetch(`http://127.0.0.1:3000/songs/albums/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
   let ahrf = div.getElementsByTagName("a");
-  
-  Array.from(ahrf).forEach((element) => {
-    if(element.href.includes("/songs/albums")){
-      console.log(element.href.split("/").slice(-2)[0]);
+  let albumsContainer = document.querySelector(".featured-grid");
+  let arr = Array.from(ahrf);
+
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    if (element.href.includes("/songs/albums")) {
+      let albumFolders = element.href.split("/").slice(-2)[0];
+      let a = await fetch(
+        `http://127.0.0.1:3000/songs/albums/${albumFolders}/info.json`
+      );
+      let response = await a.json();
+
+      albumsContainer.innerHTML = albumsContainer.innerHTML +
+        `
+      <div data-album="${albumFolders}" class="track-card albums-song">
+        <div class="track-image"><img src="songs/albums/${albumFolders}/${response.image}" alt=""></div>
+        <div class="track-info">
+          <div class="track-title">${response.title}</div>
+          <p class="track-artist">${response.description}</p>
+        </div>
+      </div>
+    `;
     }
+  }
+
+  let alubms;
+  Array.from(document.getElementsByClassName("albums-song")).forEach((e) => {
+    e.addEventListener("click", async (item) => {
+      album_name = item.currentTarget.dataset.album;
+      alubms = await getSongAlbums(`/songs/albums/${album_name}/`);
+
+      console.log(album_name);
+      curentSongAlbumeOrNot = true;
+
+      let alubmSongAdd = document.getElementById("alubmSongAdd");
+      let alubm_songs_adds = "";
+      let albums = Array.from(alubms);
+      for (let i = 0; i < albums.length; i++) {
+        let alubm = albums[i];
+        let songu = alubm.replaceAll("%20", " ");
+        let songTitle = songu;
+        let songArtist =
+          songu.split("-")[1]?.replace(".mp3", "") || "Unknown Artist";
+
+        alubm_songs_adds += `
+  <li class="playSong">
+    <div class="songNameInfo flex">
+      <img class="invert-color song_icon" src="items svg/music.svg" alt="">
+      <div class="albums_song_play">
+        <div class="track-title">${songTitle}</div>
+        <div class="track-artist">${songArtist}</div>
+      </div>
+    </div>
+    <img class="invert-color" src="items svg/play.svg" alt="">
+  </li>
+`;
+      }
+
+      alubmSongAdd.innerHTML = alubm_songs_adds;
+
+      Array.from(
+        document.getElementById("alubmSongAdd").querySelectorAll(".playSong")
+      ).forEach((e, index) => {
+        e.addEventListener("click", () => {
+          rendomSongSelect = index;
+
+          playMusic(
+            `albums/${album_name}/` +
+              e.querySelector(".albums_song_play").firstElementChild.innerHTML
+          );
+          console.log(
+            "song clicked:",
+            `albums/${album_name}/` +
+              e.querySelector(".albums_song_play").firstElementChild.innerHTML,
+            index
+          );
+        });
+      });
+    });
   });
-  
-
 }
-
-
 
 async function main() {
   let alubms;
@@ -366,59 +434,6 @@ async function main() {
         playMusic("song_add/" + songs[rendomSongSelect]);
       }
     }
-  });
-
-  Array.from(document.getElementsByClassName("albums-song")).forEach((e) => {
-    e.addEventListener("click", async (item) => {
-      album_name = item.currentTarget.dataset.alubm;
-      alubms = await getSongAlbums(`/songs/albums/${album_name}/`);
-
-      console.log(album_name);
-      curentSongAlbumeOrNot = true;
-
-      let alubmSongAdd = document.getElementById("alubmSongAdd");
-      let alubm_songs_adds = "";
-      for (const alubm of alubms) {
-        let songu = alubm.replaceAll("%20", " ");
-        let songTitle = songu;
-        let songArtist =
-          songu.split("-")[1]?.replace(".mp3", "") || "Unknown Artist";
-
-        alubm_songs_adds += `
-  <li class="playSong">
-    <div class="songNameInfo flex">
-      <img class="invert-color song_icon" src="items svg/music.svg" alt="">
-      <div class="albums_song_play">
-        <div class="track-title">${songTitle}</div>
-        <div class="track-artist">${songArtist}</div>
-      </div>
-    </div>
-    <img class="invert-color" src="items svg/play.svg" alt="">
-  </li>
-`;
-      }
-
-      alubmSongAdd.innerHTML = alubm_songs_adds;
-
-      Array.from(
-        document.getElementById("alubmSongAdd").querySelectorAll(".playSong")
-      ).forEach((e, index) => {
-        e.addEventListener("click", () => {
-          rendomSongSelect = index;
-
-          playMusic(
-            `albums/${album_name}/` +
-              e.querySelector(".albums_song_play").firstElementChild.innerHTML
-          );
-          console.log(
-            "song clicked:",
-            `albums/${album_name}/` +
-              e.querySelector(".albums_song_play").firstElementChild.innerHTML,
-            index
-          );
-        });
-      });
-    });
   });
 }
 
