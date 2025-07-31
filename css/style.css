@@ -226,12 +226,13 @@ body {
 .playbar {
   height: auto;
   min-height: 90px;
-  position: static;
+  position: sticky;
   bottom: 0px;
   background-color: var(--playbar-color);
   flex-shrink: 0;
   padding: var(--spacing-sm) var(--spacing-md);
   border-top: 1px solid #282828;
+  z-index: 10;
 }
 
 .playbar-content {
@@ -872,10 +873,10 @@ body {
 
   .left {
     width: 0px;
-    height: 100%;
+    height: 100vh;
     transition: all 0.3s ease-in;
     position: absolute;
-    z-index: 10;
+    z-index: 5;
     overflow-y: auto;
   }
 

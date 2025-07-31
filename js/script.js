@@ -128,11 +128,11 @@ async function displayAlbums() {
   let ahrf = div.getElementsByTagName("a");
   let albumsContainer = document.querySelector(".featured-grid");
   let arr = Array.from(ahrf);
-
-  for (let i = 0; i < arr.length-1; i++) {
+  
+  for (let i = 0; i < arr.length; i++) {
     const element = arr[i];
-    if (element.href.includes("/songs/albums")) {
-      albumFolders = element.href.split("/").slice(-2)[0];
+    if (element.href.includes("/songs/albums/")) {
+      albumFolders = element.href.split("/").slice(-2)[1];
       // Use relative path instead of absolute URL
       console.log("albumFolders:", albumFolders);
       let a = await fetch(`songs/albums/${albumFolders}/info.json`);
